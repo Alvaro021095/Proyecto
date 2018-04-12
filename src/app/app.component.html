@@ -1,24 +1,49 @@
-<h1>Todo: <input type="text" placeholder="Add Todo" (keydown.enter)="addToTodos($event.target)"></h1>
+<div class="container">
 
-<table border>
-  <tr *ngFor="let todo of todos">
-    <span [ngSwitch]="todo.status">
-      <div *ngSwitchCase="'Active'">
-        <td>
-          <input type="checkbox" (change)="changeToComplete($event, todo.id, 'Complete')">
-             {{todo.name}}   <button (click)="deleteTodo(todo.id)">X</button>
-        </td>
-      </div>
-      <p *ngSwitchCase="'Complete'">
-        <td>
-          <input type="checkbox" (change)="changeToComplete($event, todo.id, 'Complete')">
-             <del> {{todo.name}} </del> <button (click)="deleteTodo(todo.id)">X</button>
-        </td>
-      </p>
-    </span>
-  </tr>  
+<div class="row">
+    <div class="col-md-6">
+            <input class="margin pull-right" type="checkbox" (change)="changeToCompletes($event)">
+    </div>
+    <div class="col-md-6">
+        <h1>todos</h1>
+    </div>
+</div>
+
+<div class="row text-center">
+  <input type="text" placeholder="What needs to be done?" (keydown.enter)="addToTodos($event.target)"> 
+</div>
+
+<div class="container">
+            <div *ngFor="let todo of todos">
+                <div class="container" [ngSwitch]="todo.status">
+
+                    <div class="row col-md-offset-2" *ngSwitchCase="'Active'">
+                        <div class="col-md-1"><input class="margin pull-right" type="checkbox" (change)="changeToStatus($event, todo.id, 'Complete')"></div>
+                        <div class="col-md-6"><h1>{{todo.name}}</h1></div>                        
+                        <div class="col-md-1"><button class="pull-right margin" (click)="deleteTodo(todo.id)">X</button> </div>                      
+                    </div>
+
+                    <div class="row  col-md-offset-2" *ngSwitchCase="'Complete'">  
+                        <div class="col-md-1"><input checked class="margin  pull-right" type="checkbox" (change)="changeToStatus($event, todo.id, 'Active')"></div>
+
+                        <div class="col-md-6"><h1><del> {{todo.name}}</del></h1></div>  
+                        
+                        <div class="col-md-1"><button class="pull-right margin" (click)="deleteTodo(todo.id)">X</button> </div>  
+                    </div>
+
+                </div>
+            </div>  
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="pull-right">
+                    {{item}}
+                    </p>
+                </div>
+                <div class="col-md-8">
+                    <app-todos (resp)="changeTable($event)" (clear)="clearCompletes($event)"></app-todos>
+                </div>
+            </div>
+    </div>
+</div>
   
-  <app-todos (resp)="changeTable($event)" (clear)="clearCompletes($event)"></app-todos>
-</table>
-
-
