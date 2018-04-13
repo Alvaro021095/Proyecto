@@ -50,9 +50,9 @@ export class TodoAppService {
 	 * @param to Array de tareas que tienen el estado "Complete".
 	 */
 	clearCompletes(to: Todo[]) {
-		for (const todoo of to) {
-			this.db.collection('Todos').doc(todoo.id).delete();
-		}
+		to.map((todo) => {
+			this.deleteTodo(todo.id);
+		});
 	}
 	/**
 	 * Metodo que recorre el array que llega por parametro, y a cada
@@ -62,8 +62,8 @@ export class TodoAppService {
 	 * @param status Estado por el cual se actualizara.
 	 */
 	changeToCompletes(to: Todo[], status: string) {
-		for (const todoo of to) {
-			this.db.collection('Todos').doc(todoo.id).update({ status });
-		}
+		to.map((todo) => {
+			this.changeToStatus(todo.id, status);
+		});
 	}
 }

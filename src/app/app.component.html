@@ -1,8 +1,12 @@
 <div class="container">
 
 <div class="row">
-    <div class="col-md-6">
+    <!-- class="opacitycheck" -->
+    <div class="col-md-6" *ngIf="total > 0">
             <input class="margin pull-right" type="checkbox" (change)="changeToCompletes($event)">
+    </div>
+    <div class="col-md-6" *ngIf="total === 0">
+            <input class="margin pull-right opacitycheck" type="checkbox" (change)="changeToCompletes($event)" checked>
     </div>
     <div class="col-md-6">
         <h1>todos</h1>
